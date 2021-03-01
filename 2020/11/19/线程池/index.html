@@ -1,0 +1,484 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>线程池 | luxnln</title><meta name="keywords" content="Java,多线程"><meta name="author" content="Luxnln"><meta name="copyright" content="Luxnln"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="关于线程池知识的一些整理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线程池">
+<meta property="og:url" content="https://github.com/luxnln/luxnln.github.io/2020/11/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/index.html">
+<meta property="og:site_name" content="luxnln">
+<meta property="og:description" content="关于线程池知识的一些整理。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover1.png">
+<meta property="article:published_time" content="2020-11-19T02:51:03.000Z">
+<meta property="article:modified_time" content="2020-11-27T08:54:34.613Z">
+<meta property="article:author" content="Luxnln">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="多线程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover1.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://github.com/luxnln/luxnln.github.io/2020/11/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-8FB8GQC3GE"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-8FB8GQC3GE');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"6X03TQYT9L","apiKey":"727f7c62fe6e346f4448d0f80914ab79","indexName":"my-hexo-blog","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":75,"languages":{"author":"作者: Luxnln","link":"链接: ","source":"来源: luxnln","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-11-27 16:54:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/mystyle.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/head/rocket.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover1.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">luxnln</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">线程池</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-11-19T02:51:03.000Z" title="发表于 2020-11-19 10:51:03">2020-11-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-11-27T08:54:34.613Z" title="更新于 2020-11-27 16:54:34">2020-11-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/Multithreading/">Multithreading</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2020/11/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2020/11/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/" itemprop="commentCount"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>关于线程池知识的一些整理。</p>
+<span id="more"></span>
+
+<h2 id="线程池简介"><a href="#线程池简介" class="headerlink" title="线程池简介"></a>线程池简介</h2><h3 id="线程池概念"><a href="#线程池概念" class="headerlink" title="线程池概念"></a>线程池概念</h3><p>线程池，是一种线程的使用模式，它为了<strong>降低线程使用中频繁的创建和销毁所带来的资源消耗与代价</strong>。<br>线程池事先创建一定数量空闲的线程，让它们时刻准备就绪。等新任务的到达时，就让空闲线程去执行。而任务执行结束之后再重新回来继续待命。</p>
+<p>线程池最核心的设计思路：<strong>复用线程，平摊线程的创建与销毁的开销代价</strong>。</p>
+<h3 id="线程池组成"><a href="#线程池组成" class="headerlink" title="线程池组成"></a>线程池组成</h3><p>一般线程池的组成有4个部分：</p>
+<ol>
+<li>线程池管理器：用于创建并管理线程池</li>
+<li>工作线程：线程池中的线程</li>
+<li>任务接口：每个任务必须实现的接口，用于工作任务调度其运行</li>
+<li>任务队列：用于存放待处理任务，提供一种缓存机制</li>
+</ol>
+<h3 id="线程池工作流程"><a href="#线程池工作流程" class="headerlink" title="线程池工作流程"></a>线程池工作流程</h3><p>写了一大堆文字，发现表诉不清。还是画个图来理解一下。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/java/multithreading/threadpool.jpg" alt="线程池工作流程"></p>
+<ul>
+<li><p>线程池刚创建时，里面没有一个线程。任务队列是作为参数传进来的。</p>
+</li>
+<li><p>当判断出核心线程数未满时，即使线程池中还有空闲线程，也会创建一个先的线程来执行任务。</p>
+</li>
+<li><p>当一个线程完成任务时，它会从队列中取下一个任务来执行。</p>
+</li>
+<li><p>当线程池中线程数超过corePoolSize，并且未配置allowCoreThreadTimeOut=true时，空闲时间超过keepAliveTime的线程会被销毁，保持线程池中线程数为corePoolSize。</p>
+</li>
+<li><p>当设置allowCoreThreadTimeOut=true时，任何空闲时间超过keepAliveTime的线程都会被销毁。</p>
+</li>
+</ul>
+<h3 id="线程池的优势"><a href="#线程池的优势" class="headerlink" title="线程池的优势"></a>线程池的优势</h3><ol>
+<li><strong>降低系统资源消耗</strong>。通过重用已存在的线程，降低线程创建和销毁造成的消耗；</li>
+<li>提高系统响应速度。当有任务到达时，通过复用已存在的线程，无需等待新线程的创建便能立即执行；</li>
+<li>方便线程并发数的管控。因为线程若是无限制的创建，可能会导致内存占用过多而产生OOM，并且会造成cpu过度切换（cpu切换线程是有时间成本的（需要保持当前执行线程的现场，并恢复要执行线程的现场））。</li>
+<li> 线程池具有队列缓冲策略、拒绝机制和动态管理线程个数，特定的线程池还具有定时执行、周期执行功能，比较重要的一点是线程池可实现线程环境的隔离，例如分别定义支付功能相关线程池和优惠券功能相关线程池，当其中一个运行有问题时不会影响另一个。</li>
+</ol>
+<h2 id="常用线程池"><a href="#常用线程池" class="headerlink" title="常用线程池"></a>常用线程池</h2><p>四种常用线程池对比：</p>
+<table>
+<thead>
+<tr>
+<th>类/参数</th>
+<th>corePoolSize</th>
+<th>maximumPoolSize</th>
+<th>KeepAliveTime</th>
+<th>workQueue</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CachedThreadPool</td>
+<td>0</td>
+<td>Integer.MAX_VALUE</td>
+<td>60s</td>
+<td>SynchronousQueue</td>
+</tr>
+<tr>
+<td>FixedThreadPool</td>
+<td>nThreads</td>
+<td>nThreads</td>
+<td>0</td>
+<td>LinkedBlockingQueue</td>
+</tr>
+<tr>
+<td>SingleThreadExecutor</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>LinkedBlockingQueue</td>
+</tr>
+<tr>
+<td>ScheduledThreadPool</td>
+<td>corePoolSize</td>
+<td>Integer.MAX_VALUE</td>
+<td>0</td>
+<td>DelayedWordQueue</td>
+</tr>
+</tbody></table>
+<h3 id="1-newCacheThreadPool"><a href="#1-newCacheThreadPool" class="headerlink" title="1. newCacheThreadPool"></a>1. newCacheThreadPool</h3><p>用来创建一个可以无限扩大的线程池，适用于负载较轻的场景，执行短期异步任务。</p>
+<ul>
+<li>可以使得任务快速得到执行，因为任务时间执行短，可以很快结束，也不会造成cpu过度切换</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ExecutorService es = Executors.newCachedThreadPool();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            es.submit(()-&gt;&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">&quot;正在执行任务!&quot;</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        es.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-newFixedThreadPool"><a href="#2-newFixedThreadPool" class="headerlink" title="2. newFixedThreadPool"></a>2. newFixedThreadPool</h3><p>创建一个固定大小的线程池，因为采用无界的阻塞队列，所以实际线程数量永远不会变化，适用于负载较重的场景，对当前线程数量进行限制。</p>
+<ul>
+<li>保证线程数可控，不会造成线程过多，导致系统负载更为严重</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ExecutorService es = Executors.newFixedThreadPool(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            es.submit(()-&gt;&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">&quot;正在执行任务!&quot;</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        es.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-newSingleThreadExecutor"><a href="#3-newSingleThreadExecutor" class="headerlink" title="3. newSingleThreadExecutor"></a>3. newSingleThreadExecutor</h3><p>创建一个单线程的线程池，适用于需要保证顺序执行各个任务。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo3</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ExecutorService es = Executors.newSingleThreadExecutor();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> index = i;</span><br><span class="line">            es.submit(()-&gt;&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName()+<span class="string">&quot;正在执行任务!&quot;</span>+ index);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        es.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-newScheduledThreadPool"><a href="#4-newScheduledThreadPool" class="headerlink" title="4. newScheduledThreadPool"></a>4. newScheduledThreadPool</h3><p>适用于执行延时或者周期性任务。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo4</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ScheduledExecutorService es = Executors.newScheduledThreadPool(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//延迟1秒后每3秒执行一次</span></span><br><span class="line">        es.scheduleAtFixedRate(()-&gt;&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName()+<span class="string">&quot;正在执行任务!&quot;</span>);</span><br><span class="line">        &#125;,<span class="number">1</span>,<span class="number">3</span>, TimeUnit.SECONDS);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 不要把线程池关了</span></span><br><span class="line">        <span class="comment">// es.shutdown();</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="自定义线程池-ThreadPoolExecutor"><a href="#自定义线程池-ThreadPoolExecutor" class="headerlink" title="自定义线程池-ThreadPoolExecutor"></a>自定义线程池-ThreadPoolExecutor</h2><h3 id="七大核心属性"><a href="#七大核心属性" class="headerlink" title="七大核心属性"></a>七大核心属性</h3><ul>
+<li><p><strong>corePoolSize</strong>(int)：核心线程数量。</p>
+<ul>
+<li>默认情况下，在创建了线程池后，线程池中的线程数为0。</li>
+<li>当有任务来之后，就会创建一个线程去执行任务，当线程池中的线程数目达到corePoolSize后，就会把到达的任务放到任务队列当中。线程池将长期保证这些线程处于存活状态，即使线程已经处于闲置状态。除非配置了allowCoreThreadTimeOut=true，核心线程数的线程也将不再保证长期存活于线程池内，在空闲时间超过keepAliveTime后被销毁。</li>
+</ul>
+</li>
+<li><p><strong>workQueue</strong>：阻塞队列，存放等待执行的任务，线程从workQueue中取任务，若无任务将阻塞等待。</p>
+<ul>
+<li><p>当线程池中线程数量达到corePoolSize后，就会把新任务放到该队列当中。</p>
+</li>
+<li><p>JDK提供了几个可直接使用的队列实现，分别是：</p>
+<ul>
+<li>ArrayBlockingQueue：基于数组的有界队列，其构造必须指定大小。内部维护了一个定长数组，其所含的对象是FIFO顺序排序的。</li>
+<li>LinkedBlockingQueue：基于链表的无界队列，其内部也维持着一个数据缓冲队列，如果构造一个LinkedBlockingQueue对象，而没有指定其容量大小，LinkedBlockingQueue会默认一个类似无限大小的容量（Integer.MAX_VALUE）</li>
+<li>SynchronousQueue：只有一个元素的同步队列，一种无缓冲的等待队列，类似于无中介的直接交易，对其的操作必须是放和取交替完成。</li>
+<li>PriorityBlockingQueue：优先级队列，类似于LinkedBlockingQueue，但是其所含对象的排序不是FIFO，而是依据对象的自然顺序或者构造函数的Comparator决定。</li>
+<li>DelayQueue： 没有大小限制的队列，元素只有当其指定的延迟时间到了，才能够从队列中获取到该元素。</li>
+</ul>
+<blockquote>
+<p> 在实际使用时一定要设置队列长度，DelayQueue除外。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>maximumPoolSize</strong>(int)：线程池内的最大线程数量。</p>
+<ul>
+<li>线程池内维护的线程不得超过该数量，大于核心线程数量小于最大线程数量的线程将在空闲时间超过keepAliveTime后被销毁。</li>
+<li>当阻塞队列存满后，将会创建新线程执行任务，线程的数量不会大于maximumPoolSize。</li>
+</ul>
+</li>
+<li><p><strong>keepAliveTime</strong>(long)：线程存活时间。</p>
+<ul>
+<li>若线程数超过了corePoolSize，线程闲置时间超过了存活时间，该线程将被销毁。</li>
+<li>除非配置了allowCoreThreadTimeOut=true，核心线程数的线程也将不再保证长期存活于线程池内，在空闲时间超过keepAliveTime后被销毁。</li>
+</ul>
+</li>
+<li><p><strong>unit</strong>( TimeUnit) ：线程存活时间的单位，例如TimeUnit.SECONDS表示秒。</p>
+</li>
+<li><p><strong>RejectedExecutionHandler</strong>：拒绝策略。</p>
+<ul>
+<li><p>当任务队列存满并且线程池个数达到maximunPoolSize后采取的策略。</p>
+</li>
+<li><p>ThreadPoolExecutor中提供了四种拒绝策略</p>
+<ul>
+<li>抛RejectedExecutionException异常的AbortPolicy(如果不指定的<strong>默认策略</strong>)；</li>
+<li>使用调用者所在线程来运行任务CallerRunsPolicy；</li>
+<li>丢弃一个等待执行的任务，然后尝试执行当前任务DiscardOldestPolicy；</li>
+<li>不动声色的丢弃并且不抛异常DiscardPolicy；</li>
+</ul>
+<blockquote>
+<p>项目中如果为了更多的用户体验，可以自定义拒绝策略。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>threadFactory</strong>：创建线程的工厂。</p>
+<ul>
+<li>虽说JDK提供了线程工厂的默认实现DefaultThreadFactory，但还是建议自定义实现最好，这样可以自定义线程创建的过程，例如线程分组、自定义线程名称等。</li>
+</ul>
+</li>
+</ul>
+<h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用给定的初始参数和默认线程工厂和拒绝策略来创建一个新的线程池</span></span><br><span class="line"><span class="comment"> * (建议使用)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,</span><br><span class="line">         Executors.defaultThreadFactory(), defaultHandler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Creates a new &#123;<span class="doctag">@code</span> ThreadPoolExecutor&#125; with the given initial</span></span><br><span class="line"><span class="comment"> * parameters and default rejected execution handler.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue,</span></span></span><br><span class="line"><span class="function"><span class="params">                          ThreadFactory threadFactory)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,</span><br><span class="line">         threadFactory, defaultHandler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Creates a new &#123;<span class="doctag">@code</span> ThreadPoolExecutor&#125; with the given initial</span></span><br><span class="line"><span class="comment"> * parameters and default thread factory.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue,</span></span></span><br><span class="line"><span class="function"><span class="params">                          RejectedExecutionHandler handler)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,</span><br><span class="line">         Executors.defaultThreadFactory(), handler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Creates a new &#123;<span class="doctag">@code</span> ThreadPoolExecutor&#125; with the given initial</span></span><br><span class="line"><span class="comment"> * parameters.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                          <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                          TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                          BlockingQueue&lt;Runnable&gt; workQueue,</span></span></span><br><span class="line"><span class="function"><span class="params">                          ThreadFactory threadFactory,</span></span></span><br><span class="line"><span class="function"><span class="params">                          RejectedExecutionHandler handler)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (corePoolSize &lt; <span class="number">0</span> ||</span><br><span class="line">        maximumPoolSize &lt;= <span class="number">0</span> ||</span><br><span class="line">        maximumPoolSize &lt; corePoolSize ||</span><br><span class="line">        keepAliveTime &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">    <span class="keyword">if</span> (workQueue == <span class="keyword">null</span> || threadFactory == <span class="keyword">null</span> || handler == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">    <span class="keyword">this</span>.corePoolSize = corePoolSize;</span><br><span class="line">    <span class="keyword">this</span>.maximumPoolSize = maximumPoolSize;</span><br><span class="line">    <span class="keyword">this</span>.workQueue = workQueue;</span><br><span class="line">    <span class="keyword">this</span>.keepAliveTime = unit.toNanos(keepAliveTime);</span><br><span class="line">    <span class="keyword">this</span>.threadFactory = threadFactory;</span><br><span class="line">    <span class="keyword">this</span>.handler = handler;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>我们可以指定线程池的7个核心参数，根据我们的需要来创建线程池。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ThreadPoolExecutor myThreadPool = <span class="keyword">new</span> ThreadPoolExecutor(</span><br><span class="line">                                        <span class="number">1</span>,</span><br><span class="line">                                        <span class="number">3</span>,</span><br><span class="line">                                        <span class="number">10</span>,</span><br><span class="line">                                        TimeUnit.SECONDS,</span><br><span class="line">                                        <span class="keyword">new</span> ArrayBlockingQueue&lt;&gt;(<span class="number">10</span>),</span><br><span class="line">                                        Executors.defaultThreadFactory(),</span><br><span class="line">                                        <span class="keyword">new</span> ThreadPoolExecutor.AbortPolicy());</span><br><span class="line"></span><br><span class="line">        </span><br></pre></td></tr></table></figure>
+
+
+
+<p>默认工厂的实现：(如果我们想自定义线程工厂，则可以实现ThreadFactory接口的newThread方法来指定创建线程的过程)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">DefaultThreadFactory</span> <span class="keyword">implements</span> <span class="title">ThreadFactory</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> AtomicInteger poolNumber = <span class="keyword">new</span> AtomicInteger(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ThreadGroup group;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger threadNumber = <span class="keyword">new</span> AtomicInteger(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String namePrefix;</span><br><span class="line"></span><br><span class="line">    DefaultThreadFactory() &#123;</span><br><span class="line">        SecurityManager s = System.getSecurityManager();</span><br><span class="line">        group = (s != <span class="keyword">null</span>) ? s.getThreadGroup() :</span><br><span class="line">        Thread.currentThread().getThreadGroup();</span><br><span class="line">        namePrefix = <span class="string">&quot;pool-&quot;</span> +</span><br><span class="line">            poolNumber.getAndIncrement() +</span><br><span class="line">            <span class="string">&quot;-thread-&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Thread <span class="title">newThread</span><span class="params">(Runnable r)</span> </span>&#123;</span><br><span class="line">        Thread t = <span class="keyword">new</span> Thread(group, r,</span><br><span class="line">                              namePrefix + threadNumber.getAndIncrement(),</span><br><span class="line">                              <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (t.isDaemon())</span><br><span class="line">            t.setDaemon(<span class="keyword">false</span>);</span><br><span class="line">        <span class="keyword">if</span> (t.getPriority() != Thread.NORM_PRIORITY)</span><br><span class="line">            t.setPriority(Thread.NORM_PRIORITY);</span><br><span class="line">        <span class="keyword">return</span> t;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="如何合理地配置线程池"><a href="#如何合理地配置线程池" class="headerlink" title="如何合理地配置线程池"></a>如何合理地配置线程池</h2><p>分两种情况：</p>
+<ul>
+<li>CPU密集<ul>
+<li>CPU密集的意思是该任务需要大量的运算，而没有阻塞，CPU一直全速运行。</li>
+<li>CPU密集任务只有在真正的多核CPU上才可能得到加速(通过多线程)，而在单核CPU上，无论你开几个模拟的多线程，该任务都不可能得到加速，因为CPU总的运算能力就那些。</li>
+</ul>
+</li>
+<li>IO密集<ul>
+<li>IO密集型，即该任务需要大量的IO，即大量的阻塞。在单线程上运行IO密集型的任务会导致浪费大量的CPU运算能力浪费在等待。所以在IO密集型任务中使用多线程可以大大的加速程序运行，即使在单核CPU上，这种加速主要就是利用了被浪费掉的阻塞时间。</li>
+</ul>
+</li>
+</ul>
+<p>要想合理的配置线程池的大小，首先得分析任务的特性，可以从以下几个角度分析：</p>
+<ol>
+<li>任务的性质：CPU密集型任务、IO密集型任务、混合型任务。</li>
+<li>任务的优先级：高、中、低。</li>
+<li>任务的执行时间：长、中、短。</li>
+<li>任务的依赖性：是否依赖其他系统资源，如数据库连接等。</li>
+</ol>
+<p>性质不同的任务可以交给不同规模的线程池执行：</p>
+<ul>
+<li>CPU密集型任务应配置尽可能小的线程，如配置CPU个数+1的线程数，</li>
+<li>IO密集型任务应配置尽可能多的线程，因为IO操作不占用CPU，不要让CPU闲下来，应加大线程数量，如配置两倍CPU个数+1，</li>
+<li>对于混合型的任务，如果可以拆分，拆分成IO密集型和CPU密集型分别处理，前提是两者运行的时间是差不多的，如果处理时间相差很大，则没必要拆分了。</li>
+<li>若任务对其他系统资源有依赖，如某个任务依赖数据库的连接返回的结果，这时候等待的时间越长，则CPU空闲的时间越长，那么线程数量应设置得越大，才能更好的利用CPU。</li>
+<li>当然具体合理线程池值大小，需要结合系统实际情况，在大量的尝试下比较才能得出，以上只是前人总结的规律。</li>
+</ul>
+<blockquote>
+<p><code>最佳线程数目 = （（线程等待时间+线程CPU时间）/线程CPU时间 ）*** CPU数目</code>**</p>
+<ul>
+<li>比如平均每个线程CPU运行时间为0.5s，而线程等待时间（非CPU运行时间，比如IO）为1.5s，CPU核心数为8，那么根据上面这个公式估算得到：((0.5+1.5)/0.5)**8=32。</li>
+</ul>
+<p>这个公式进一步转化为：<code>最佳线程数目 = （线程等待时间与线程CPU时间之比 + 1）*** CPU数目**</code></p>
+<p>可以得出一个结论：</p>
+<p>线程等待时间所占比例越高，需要越多线程。线程CPU时间所占比例越高，需要越少线程。</p>
+<p>以上公式与之前的CPU和IO密集型任务设置线程数基本吻合。</p>
+</blockquote>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/hnd978142833/article/details/80253784">4种常用线程池介绍</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7726c70cdc40">Java线程池详解</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35448985/article/details/108096021">线程池工作原理与底层实现</a></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Luxnln</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://github.com/luxnln/luxnln.github.io/2020/11/19/%E7%BA%BF%E7%A8%8B%E6%B1%A0/">https://github.com/luxnln/luxnln.github.io/2020/11/19/线程池/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://github.com/luxnln/luxnln.github.io" target="_blank">luxnln</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/11/19/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover10.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">多线程阶段总结</div></div></a></div><div class="next-post pull-right"><a href="/2020/11/18/%E9%94%81%E4%BC%98%E5%8C%96/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover15.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">锁优化</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/11/20/tcp文件上传的多线程实现/" title="tcp文件上传的多线程实现"><img class="cover" src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover8.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-20</div><div class="title">tcp文件上传的多线程实现</div></div></a></div><div><a href="/2020/11/17/关于多线程/" title="关于多线程"><img class="cover" src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover20.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-17</div><div class="title">关于多线程</div></div></a></div><div><a href="/2020/11/17/多线程的同步/" title="多线程的同步"><img class="cover" src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover7.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-17</div><div class="title">多线程的同步</div></div></a></div><div><a href="/2020/11/17/多线程的三种实现方式/" title="多线程的三种实现方式"><img class="cover" src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover16.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-17</div><div class="title">多线程的三种实现方式</div></div></a></div><div><a href="/2020/11/19/多线程阶段总结/" title="多线程阶段总结"><img class="cover" src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover10.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-19</div><div class="title">多线程阶段总结</div></div></a></div><div><a href="/2020/11/17/线程的常用方法/" title="线程的常用方法"><img class="cover" src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover19.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-17</div><div class="title">线程的常用方法</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Valine</span><span class="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/head/rocket.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Luxnln</div><div class="author-info__description">一只奋斗的咸鱼</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div></div><a class="button--animated" id="card-info-btn" href="https://github.com/luxnln/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/luxnln" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a><a class="social-icon" href="mailto:luxinlin.las@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">一只年轻的博客~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">线程池简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">线程池概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%BB%84%E6%88%90"><span class="toc-number">1.2.</span> <span class="toc-text">线程池组成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">线程池工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-number">1.4.</span> <span class="toc-text">线程池的优势</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-number">2.</span> <span class="toc-text">常用线程池</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-newCacheThreadPool"><span class="toc-number">2.1.</span> <span class="toc-text">1. newCacheThreadPool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-newFixedThreadPool"><span class="toc-number">2.2.</span> <span class="toc-text">2. newFixedThreadPool</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-newSingleThreadExecutor"><span class="toc-number">2.3.</span> <span class="toc-text">3. newSingleThreadExecutor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-newScheduledThreadPool"><span class="toc-number">2.4.</span> <span class="toc-text">4. newScheduledThreadPool</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0-ThreadPoolExecutor"><span class="toc-number">3.</span> <span class="toc-text">自定义线程池-ThreadPoolExecutor</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%83%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7"><span class="toc-number">3.1.</span> <span class="toc-text">七大核心属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text">构造方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">3.3.</span> <span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%90%88%E7%90%86%E5%9C%B0%E9%85%8D%E7%BD%AE%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="toc-number">4.</span> <span class="toc-text">如何合理地配置线程池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/03/01/springboot2%E7%AC%94%E8%AE%B0/" title="Springboot2 学习笔记"><img src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Springboot2 学习笔记"/></a><div class="content"><a class="title" href="/2021/03/01/springboot2%E7%AC%94%E8%AE%B0/" title="Springboot2 学习笔记">Springboot2 学习笔记</a><time datetime="2021-03-01T01:26:40.970Z" title="发表于 2021-03-01 09:26:40">2021-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/27/%E5%88%86%E9%A1%B5%E6%9D%A1%E6%A8%A1%E6%9D%BF/" title="分页条模板"><img src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover23.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分页条模板"/></a><div class="content"><a class="title" href="/2021/02/27/%E5%88%86%E9%A1%B5%E6%9D%A1%E6%A8%A1%E6%9D%BF/" title="分页条模板">分页条模板</a><time datetime="2021-02-27T02:04:02.000Z" title="发表于 2021-02-27 10:04:02">2021-02-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/01/11/MyBatis%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" title="MyBatis入门笔记"><img src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MyBatis入门笔记"/></a><div class="content"><a class="title" href="/2021/01/11/MyBatis%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" title="MyBatis入门笔记">MyBatis入门笔记</a><time datetime="2021-01-11T01:54:11.000Z" title="发表于 2021-01-11 09:54:11">2021-01-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/01/08/SpringMVC%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" title="SpringMVC入门笔记"><img src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SpringMVC入门笔记"/></a><div class="content"><a class="title" href="/2021/01/08/SpringMVC%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" title="SpringMVC入门笔记">SpringMVC入门笔记</a><time datetime="2021-01-08T01:15:07.000Z" title="发表于 2021-01-08 09:15:07">2021-01-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/01/06/Spring5%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" title="Spring5入门笔记"><img src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spring5入门笔记"/></a><div class="content"><a class="title" href="/2021/01/06/Spring5%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" title="Spring5入门笔记">Spring5入门笔记</a><time datetime="2021-01-06T03:35:08.000Z" title="发表于 2021-01-06 11:35:08">2021-01-06</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover1.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Luxnln</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到我的<a target="_blank" rel="noopener" href="https://luxnln.github.io/">博客</a>一起学习！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'uytqObeeku5pIvOuSPbKavBQ-gzGzoHsz',
+      appKey: 'maDLKIIafoz3vsD2TiHgCsbF',
+      placeholder: '记得留下你的匿名和邮箱....可以快速收到回復',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '4ca1b3485559d9a57698',
+      clientSecret: '83103a3948d3dbe29eb820c515968f4813c93f0c',
+      repo: 'for-gitalk',
+      owner: 'luxnln',
+      admin: ['luxnln'],
+      id: '01dd0fb4428258d8df4cf4694d1381d2',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

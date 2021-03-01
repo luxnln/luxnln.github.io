@@ -1,0 +1,889 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JQuery入门 | luxnln</title><meta name="keywords" content="jQuery"><meta name="author" content="Luxnln"><meta name="copyright" content="Luxnln"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Jquery介绍什么是jQuery？  Jquery，顾名思义，也就是JavaScript和查询(Query)，他就是辅助JavaScript开发的js类库  Jquery核心思想？  它的核心思想是write less, do more(写的更少，做的更多)，所以它实现了很多浏览器的兼容问题  jQuery好处？  jQuery免费、开源，jQuery的语法设计可以使开发更敏捷，例如操作文档对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JQuery入门">
+<meta property="og:url" content="https://github.com/luxnln/luxnln.github.io/2020/12/15/JQuery%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="luxnln">
+<meta property="og:description" content="Jquery介绍什么是jQuery？  Jquery，顾名思义，也就是JavaScript和查询(Query)，他就是辅助JavaScript开发的js类库  Jquery核心思想？  它的核心思想是write less, do more(写的更少，做的更多)，所以它实现了很多浏览器的兼容问题  jQuery好处？  jQuery免费、开源，jQuery的语法设计可以使开发更敏捷，例如操作文档对象">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/icon/jQeury.jpg">
+<meta property="article:published_time" content="2020-12-15T01:15:59.000Z">
+<meta property="article:modified_time" content="2020-12-15T01:23:24.226Z">
+<meta property="article:author" content="Luxnln">
+<meta property="article:tag" content="jQuery">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/icon/jQeury.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://github.com/luxnln/luxnln.github.io/2020/12/15/JQuery%E5%85%A5%E9%97%A8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.10.5/dist/instantsearch.min.js" defer></script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-8FB8GQC3GE"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-8FB8GQC3GE');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"6X03TQYT9L","apiKey":"727f7c62fe6e346f4448d0f80914ab79","indexName":"my-hexo-blog","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":75,"languages":{"author":"作者: Luxnln","link":"链接: ","source":"来源: luxnln","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-12-15 09:23:24'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/mystyle.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/head/rocket.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/icon/jQeury.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">luxnln</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JQuery入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-12-15T01:15:59.000Z" title="发表于 2020-12-15 09:15:59">2020-12-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-12-15T01:23:24.226Z" title="更新于 2020-12-15 09:23:24">2020-12-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2020/12/15/JQuery%E5%85%A5%E9%97%A8/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2020/12/15/JQuery%E5%85%A5%E9%97%A8/" itemprop="commentCount"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Jquery介绍"><a href="#Jquery介绍" class="headerlink" title="Jquery介绍"></a>Jquery介绍</h2><p>什么是jQuery？</p>
+<ul>
+<li>Jquery，顾名思义，也就是JavaScript和查询(Query)，他就是辅助JavaScript开发的js类库</li>
+</ul>
+<p><strong>Jquery核心思想？</strong></p>
+<ul>
+<li>它的核心思想是write less, do more(写的更少，做的更多)，所以它实现了很多浏览器的兼容问题</li>
+</ul>
+<p>jQuery好处？</p>
+<ul>
+<li>jQuery免费、开源，jQuery的语法设计可以使开发更敏捷，例如操作文档对象、选择DOM元素、制作动画效果、事件处理、使用Ajax以及其他功能</li>
+</ul>
+<h2 id="Jquery入门案例"><a href="#Jquery入门案例" class="headerlink" title="Jquery入门案例"></a>Jquery入门案例</h2><p>使用jQuery给一个按钮绑定单击事件？无法加载 “markdown.styles”: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;jQuery-3.4.1.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">    $(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> $btnObj = $(<span class="string">&quot;#btnId&quot;</span>);  <span class="comment">// 表示按id查询标签对象</span></span><br><span class="line">        $btnObj.click(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="comment">// 绑定单击事件</span></span><br><span class="line">            alert(<span class="string">&quot;Jquery 的单击事件&quot;</span>);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;button id=<span class="string">&quot;btnId&quot;</span>&gt;SayHello&lt;/button&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>常见问题：</p>
+<ol>
+<li>使用jQuery一定要引入jQuery库吗？    是，必须</li>
+<li>jQuery中的$到底是什么？      <strong>$是一个函数</strong></li>
+<li>怎么为按钮添加点击响应函数？     <ul>
+<li>使用jQuery查询到标签对象，然后使用标签对象.click(function(){});</li>
+</ul>
+</li>
+</ol>
+<h2 id="jQuery核心函数"><a href="#jQuery核心函数" class="headerlink" title="jQuery核心函数"></a>jQuery核心函数</h2><p>$是jQuery的核心函数，能完成jQuery的很多功能。$()就是调用$这个函数</p>
+<p>$有哪些功能？</p>
+<ol>
+<li>传入参数是【函数】时：表示页面加载完成之后执行。<strong>相当于window.onload=function(){}</strong></li>
+<li>传入参数是【HTML字符串】时：会为我们创建这个html标签对象</li>
+<li>传入参数是【选择器字符串】时：<ol>
+<li>$(“$id属性值”): id选择器，根据id查询标签对象</li>
+<li>$(“标签名”): 标签名选择器，根据指定的标签名查询标签对象</li>
+<li>$(“.class属性值”): 类型选择器，可以根据class查询标签对象</li>
+</ol>
+</li>
+<li>传入参数是【DOM对象】时：会把DOM对象转换为jQuery对象</li>
+</ol>
+<h2 id="区分jQuery对象和DOM对象"><a href="#区分jQuery对象和DOM对象" class="headerlink" title="区分jQuery对象和DOM对象"></a>区分jQuery对象和DOM对象</h2><h3 id="什么是jQuery对象？"><a href="#什么是jQuery对象？" class="headerlink" title="什么是jQuery对象？"></a>什么是jQuery对象？</h3><ol>
+<li>通过jQuery提供的API创建的对象</li>
+<li>通过jQuery包装的DOM对象</li>
+<li>通过jQuery提供的API查询到的对象</li>
+</ol>
+<blockquote>
+<p>DOM对象alert出来的是：[object Object]</p>
+</blockquote>
+<h3 id="什么是DOM对象"><a href="#什么是DOM对象" class="headerlink" title="什么是DOM对象"></a>什么是DOM对象</h3><ol>
+<li>通过getElementById()查询出来的标签对象</li>
+<li>通过getElementByName()查询出来的标签对象</li>
+<li>通过getElementByTagName()查询出来的标签对象</li>
+<li>通过createElement()方法创建出来的对象</li>
+</ol>
+<blockquote>
+<p>DOM对象alert出来的是：[object HTML 标签名 element]</p>
+</blockquote>
+<h3 id="jQuery对象的本质是什么？"><a href="#jQuery对象的本质是什么？" class="headerlink" title="jQuery对象的本质是什么？"></a>jQuery对象的本质是什么？</h3><p>jQuery对象是DOM对象的数组加jQuery提供的一系列功能函数.</p>
+<h3 id="jQuery对象和DOM对象使用上的区别"><a href="#jQuery对象和DOM对象使用上的区别" class="headerlink" title="jQuery对象和DOM对象使用上的区别"></a>jQuery对象和DOM对象使用上的区别</h3><p>jQuery对象不能使用DOM对象的属性和方法</p>
+<p>DOM对象也不能使用jQuery对象的属性和方法</p>
+<h3 id="DOM对象和jQuery对象互相转换"><a href="#DOM对象和jQuery对象互相转换" class="headerlink" title="DOM对象和jQuery对象互相转换"></a>DOM对象和jQuery对象互相转换</h3><ol>
+<li><p>DOM对象转jQuery对象</p>
+<ol>
+<li>先有DOM对象</li>
+<li>$(DOM对象)就可以转换成为jQuery对象</li>
+</ol>
+</li>
+<li><p>jQuery对象转DOM对象</p>
+<ol>
+<li>先有jQuery对象</li>
+<li>jQuery对象[下标]取出相应的DOM对象</li>
+</ol>
+</li>
+</ol>
+<h2 id="jQuery选择器"><a href="#jQuery选择器" class="headerlink" title="jQuery选择器"></a>jQuery选择器</h2><h3 id="基本选择器"><a href="#基本选择器" class="headerlink" title="基本选择器"></a>基本选择器</h3><table>
+<thead>
+<tr>
+<th align="left">选择器</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">#id 选择器</td>
+<td align="left">根据id查找标签对象</td>
+</tr>
+<tr>
+<td align="left">.class 选择器</td>
+<td align="left">根据class查找标签对象</td>
+</tr>
+<tr>
+<td align="left">element 选择器</td>
+<td align="left">根据标签名查找标签对</td>
+</tr>
+<tr>
+<td align="left">* 选择器</td>
+<td align="left">表示任意的，所有元素</td>
+</tr>
+<tr>
+<td align="left">selector1,selector2,selectorN</td>
+<td align="left">合并选择器1，选择器2..N的结果并返回</td>
+</tr>
+</tbody></table>
+<h3 id="层级选择器"><a href="#层级选择器" class="headerlink" title="层级选择器"></a>层级选择器</h3><table>
+<thead>
+<tr>
+<th align="left">选择器</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ancestor descendant</td>
+<td align="left">匹配ancestor的后代元素descendant</td>
+</tr>
+<tr>
+<td align="left">parent &gt; child</td>
+<td align="left">匹配parent的子元素child</td>
+</tr>
+<tr>
+<td align="left">prev + next</td>
+<td align="left">匹配所有紧接在prev元素后的一个next元素</td>
+</tr>
+<tr>
+<td align="left">prev ~ siblings</td>
+<td align="left">匹配prev元素之后的所有同级的siblings元素</td>
+</tr>
+</tbody></table>
+<h3 id="基本过滤选择器"><a href="#基本过滤选择器" class="headerlink" title="基本过滤选择器"></a>基本过滤选择器</h3><table>
+<thead>
+<tr>
+<th align="left">选择器</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">:first</td>
+<td align="left">获取第一个匹配到的元素</td>
+</tr>
+<tr>
+<td align="left">:last</td>
+<td align="left">获取最后一个匹配到的元素</td>
+</tr>
+<tr>
+<td align="left">:not(selector)</td>
+<td align="left">去除所有与给定选择器匹配的元素</td>
+</tr>
+<tr>
+<td align="left">:even</td>
+<td align="left">匹配素有索引值为偶数的元素，从0开始计算</td>
+</tr>
+<tr>
+<td align="left">:odd</td>
+<td align="left">匹配素有索引值为奇数的元素，从0开始计算</td>
+</tr>
+<tr>
+<td align="left">:eq(index)</td>
+<td align="left">匹配一个给定索引值的元素</td>
+</tr>
+<tr>
+<td align="left">:gt(index)</td>
+<td align="left">匹配所有大于给定索引值的元素，从0开始计算</td>
+</tr>
+<tr>
+<td align="left">:lt(index)</td>
+<td align="left">匹配所有小于给定索引值的元素，从0开始计算</td>
+</tr>
+<tr>
+<td align="left">:header</td>
+<td align="left">匹配如h1,h2这类的标题元素</td>
+</tr>
+<tr>
+<td align="left">:animated</td>
+<td align="left">匹配所有正在执行动画的元素</td>
+</tr>
+<tr>
+<td align="left">:focus</td>
+<td align="left">匹配正被选中的元素</td>
+</tr>
+</tbody></table>
+<h3 id="内容过滤器"><a href="#内容过滤器" class="headerlink" title="内容过滤器"></a>内容过滤器</h3><table>
+<thead>
+<tr>
+<th align="left">选择器</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">:contains(text)</td>
+<td align="left">匹配包含给定文本的元素</td>
+</tr>
+<tr>
+<td align="left">:empty</td>
+<td align="left">匹配所有不包含子元素或者文本的空元素</td>
+</tr>
+<tr>
+<td align="left">:has(selector)</td>
+<td align="left">匹配含有选择器所匹配的元素的元素</td>
+</tr>
+<tr>
+<td align="left">:parent</td>
+<td align="left">匹配包含有子元素或者文本的元素</td>
+</tr>
+</tbody></table>
+<h3 id="属性过滤器"><a href="#属性过滤器" class="headerlink" title="属性过滤器"></a>属性过滤器</h3><table>
+<thead>
+<tr>
+<th align="left">选择器</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">[attribute]</td>
+<td align="left">匹配包含给定属性的元素</td>
+</tr>
+<tr>
+<td align="left">[attribute=value]</td>
+<td align="left">匹配给定的属性事某个特定的值的元素</td>
+</tr>
+<tr>
+<td align="left">[attribute!=value]</td>
+<td align="left">匹配所有不含有指定的属性，或者属性不等于特定值的元素</td>
+</tr>
+<tr>
+<td align="left">[attribute^=value]</td>
+<td align="left">匹配给定的属性是以某些值开始的元素</td>
+</tr>
+<tr>
+<td align="left">[attribute$=value]</td>
+<td align="left">匹配给定的属性是以某些值结尾的元素</td>
+</tr>
+<tr>
+<td align="left">[attribute*=value]</td>
+<td align="left">匹配给定的属性是以包含某些之的元素</td>
+</tr>
+<tr>
+<td align="left">[selector1][selector2][selectorN]</td>
+<td align="left">复合属性选择器，需要同时满足多个条件时使用</td>
+</tr>
+</tbody></table>
+<h3 id="表单过滤器"><a href="#表单过滤器" class="headerlink" title="表单过滤器"></a>表单过滤器</h3><table>
+<thead>
+<tr>
+<th align="left">选择器</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">:input</td>
+<td align="left">匹配所有input、textarea,select和button元素</td>
+</tr>
+<tr>
+<td align="left">:text</td>
+<td align="left">匹配所有单行文本框</td>
+</tr>
+<tr>
+<td align="left">:password</td>
+<td align="left">匹配所有密码框</td>
+</tr>
+<tr>
+<td align="left">:radio</td>
+<td align="left">匹配所有单选按钮</td>
+</tr>
+<tr>
+<td align="left">:submit</td>
+<td align="left">匹配所有复选框</td>
+</tr>
+<tr>
+<td align="left">:image</td>
+<td align="left">匹配所有提交按钮</td>
+</tr>
+<tr>
+<td align="left">:reset</td>
+<td align="left">匹配所有重置按钮</td>
+</tr>
+<tr>
+<td align="left">:button</td>
+<td align="left">匹配所有按钮</td>
+</tr>
+<tr>
+<td align="left">:file</td>
+<td align="left">匹配所有文件域</td>
+</tr>
+<tr>
+<td align="left">:hidden</td>
+<td align="left">匹配所有不可见元素，或者type为hidden的元素</td>
+</tr>
+<tr>
+<td align="left">:enable</td>
+<td align="left">匹配所有可用的元素</td>
+</tr>
+<tr>
+<td align="left">:disable</td>
+<td align="left">匹配所有不可用的元素</td>
+</tr>
+<tr>
+<td align="left">:checked</td>
+<td align="left">匹配所有选中的被选中的元素(复选框、单选框等，不包括select中的option)</td>
+</tr>
+<tr>
+<td align="left">:selected</td>
+<td align="left">匹配所有选中的option</td>
+</tr>
+</tbody></table>
+<h2 id="元素的筛选"><a href="#元素的筛选" class="headerlink" title="元素的筛选"></a>元素的筛选</h2><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">eq()</td>
+<td align="left">获取给定索引的元素</td>
+</tr>
+<tr>
+<td align="left">first()</td>
+<td align="left">获取第一个元素</td>
+</tr>
+<tr>
+<td align="left">last()</td>
+<td align="left">获取最后一个元素</td>
+</tr>
+<tr>
+<td align="left">filter(exp)</td>
+<td align="left">留下匹配的元素</td>
+</tr>
+<tr>
+<td align="left">is()</td>
+<td align="left">判断是否匹配给定的选择器，只要有一个匹配就返回，true</td>
+</tr>
+<tr>
+<td align="left">has(exp)</td>
+<td align="left">返回包含有匹配选择器的元素的元素</td>
+</tr>
+<tr>
+<td align="left">not(exp)</td>
+<td align="left">删除匹配给定选择器的子元素</td>
+</tr>
+<tr>
+<td align="left">find(exp)</td>
+<td align="left">返回匹配给定选择器的后代元素</td>
+</tr>
+<tr>
+<td align="left">next()</td>
+<td align="left">返回当前元素的下一个元素</td>
+</tr>
+<tr>
+<td align="left">nextAll()</td>
+<td align="left">返回当前元素后面所有的兄弟元素</td>
+</tr>
+<tr>
+<td align="left">nextUntil()</td>
+<td align="left">返回当前元素到指定匹配的元素为止的后面元素</td>
+</tr>
+<tr>
+<td align="left">parent()</td>
+<td align="left">返回父元素</td>
+</tr>
+<tr>
+<td align="left">prev(exp)</td>
+<td align="left">返回当前元素的上一个兄弟元素</td>
+</tr>
+<tr>
+<td align="left">prevAll()</td>
+<td align="left">返回当前元素前面所有的兄弟元素</td>
+</tr>
+<tr>
+<td align="left">prevUnit(exp)</td>
+<td align="left">返回当前元素到指定匹配的元素为止的前面元素</td>
+</tr>
+<tr>
+<td align="left">siblings(exp)</td>
+<td align="left">返回所有兄弟元素</td>
+</tr>
+<tr>
+<td align="left">add()</td>
+<td align="left">把add匹配的选择器的元素添加到当前jQuery对象中</td>
+</tr>
+</tbody></table>
+<h2 id="jQuery的属性操作"><a href="#jQuery的属性操作" class="headerlink" title="jQuery的属性操作"></a>jQuery的属性操作</h2><h3 id="html-、text-、val"><a href="#html-、text-、val" class="headerlink" title="html()、text()、val()"></a>html()、text()、val()</h3><p>三个属性：</p>
+<ul>
+<li>html代码</li>
+<li>文本</li>
+<li>值</li>
+</ul>
+<p>操作方法：</p>
+<ul>
+<li>html()：可以设置和获取起始标签和结束标签中的内容。跟dom属性innerHTML一致</li>
+<li>text()：可以设置和获取其实标签和结束标签中的文本。跟dom属性inserText一致</li>
+<li>val()：可以设置和获取表单项的value属性值。跟dom属性value一致</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span></span><br><span class="line"><span class="javascript">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// html() 不传参数，是获取。传递参数是设置</span></span></span><br><span class="line"><span class="javascript">    alert($(<span class="string">&quot;div&quot;</span>).html()); <span class="comment">// 获取</span></span></span><br><span class="line"><span class="javascript">    $(<span class="string">&quot;div&quot;</span>).html(<span class="string">&quot;&lt;h1&gt;我是div中的标题1&lt;/h1&gt;&quot;</span>); <span class="comment">// 设置</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="comment">// test() 不传参数，是获取。传递参数是设置</span></span></span><br><span class="line"><span class="javascript">    alert($(<span class="string">&quot;div&quot;</span>).text());</span></span><br><span class="line"><span class="javascript">    $(<span class="string">&quot;div&quot;</span>).text(<span class="string">&quot;&lt;h1&gt;我是div中的标题1&lt;/h1&gt;&quot;</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="comment">// val() 不传参数，是获取。传递参数是设置</span></span></span><br><span class="line"><span class="javascript">    $(<span class="string">&quot;button&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        alert($(<span class="string">&quot;#username&quot;</span>).val(<span class="string">&quot;&quot;</span>));</span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#username&quot;</span>).val(<span class="string">&quot;333333&quot;</span>);</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>我是div标签<span class="tag">&lt;<span class="name">span</span>&gt;</span>我是div中的span<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">id</span>=<span class="string">&quot;username&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>操作输入框<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="attr-、prop"><a href="#attr-、prop" class="headerlink" title="attr()、prop()"></a>attr()、prop()</h3><p>attr()：可以设置和获取属性和值，不推荐操作checked、readOnly、selected、disabled等等。attr方法还可以操作非标准的属性。比如自定义属性：abc，bbj之类的。<br>prop()：可以设置和获取属性和值，推荐操作attr()不推荐的操作。</p>
+<p>示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span></span><br><span class="line"><span class="javascript">    $(funcion ()&#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// attr</span></span></span><br><span class="line"><span class="javascript">        alert($(<span class="string">&quot;:checkbox:first&quot;</span>).attr(<span class="string">&quot;name&quot;</span>)); <span class="comment">// 获取</span></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;:checkbox:first&quot;</span>).attr(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;abc&quot;</span>);  <span class="comment">// 设置</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 没选中的时候</span></span></span><br><span class="line"><span class="javascript">        alert($(<span class="string">&quot;:checkbox&quot;</span>).attr(<span class="string">&quot;checked&quot;</span>));  <span class="comment">// 返回一个undifined，官方觉得这是一个错误</span></span></span><br><span class="line"><span class="javascript">        alert($(<span class="string">&quot;:checkbox&quot;</span>).prop(<span class="string">&quot;checked&quot;</span>));  <span class="comment">// 返回一个false</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 选中的时候，都放回true</span></span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">    多选：</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">value</span>=<span class="string">&quot;checkbox1&quot;</span> /&gt;</span>checkbox1</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">value</span>=<span class="string">&quot;checkbox2&quot;</span> /&gt;</span> checkbox2</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="全选、全不选、反选案例"><a href="#全选、全不选、反选案例" class="headerlink" title="全选、全不选、反选案例"></a>全选、全不选、反选案例</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span></span><br><span class="line"><span class="javascript">    $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 给全选绑定单击事件</span></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#checkedAllBtn&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&quot;:checkbox&quot;</span>).prop(<span class="string">&quot;checked&quot;</span>, <span class="literal">true</span>);</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 给全不选绑定单击事件</span></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#checkedNoBtn&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            $(<span class="string">&quot;:checkbox&quot;</span>).prop(<span class="string">&quot;checked&quot;</span>, <span class="literal">true</span>);</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 给反选绑定单击事件</span></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#checkedRevBtn&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 查询全部球类的复选框</span></span></span><br><span class="line"><span class="javascript">            $(<span class="string">&quot;:checkbox[name=&#x27;items&#x27;]&quot;</span>).each(<span class="function"><span class="title">fucntion</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 在each便利的function函数中，有一个this对象，这个this对象是当前正在遍历到的dom对象</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">this</span>.checked = !<span class="built_in">this</span>.check</span></span><br><span class="line">            &#125;);</span><br><span class="line"><span class="javascript">            <span class="comment">// 要检查是否满选了</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// 获取全部的球类个数，在获取选中的球类个数</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> allCount = $(<span class="string">&quot;:checkbox[name=&#x27;items&#x27;]&quot;</span>).length;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> checkedCount = $(<span class="string">&quot;:checkbox[name=&#x27;items&#x27;]:checked&quot;</span>).length;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="javascript">            <span class="comment">// if (allCount == checkedCount)&#123;</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//     $(&quot;$chekcedAllBox&quot;).prop(&quot;checked&quot;, true);</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// &#125;else &#123;</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//     $(&quot;$chekcedAllBox&quot;).prop(&quot;checked&quot;, false);</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// &#125;</span></span></span><br><span class="line"><span class="javascript">            $(<span class="string">&quot;#chekcedAllBox&quot;</span>).prop(<span class="string">&quot;checked&quot;</span>, allCount == checkedCount);</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 提交按钮单击事件</span></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#sendBtn&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 获取宣红的球类复选框</span></span></span><br><span class="line"><span class="javascript">            $(<span class="string">&quot;:checkedbox[name=&#x27;items&#x27;]:checked&quot;</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">                alert(<span class="built_in">this</span>.value);</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 给【全选/全不选】绑定单击是加你</span></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;#checkedAllBox&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 在事件的function函数中，有一个this对象，这个this对象是当前正在响应事件的dom对象</span></span></span><br><span class="line"><span class="javascript">            $(<span class="string">&quot;:checkbox[name=&#x27;items&#x27;]&quot;</span>).prop(<span class="string">&quot;checked&quot;</span>,<span class="built_in">this</span>.checked);</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 给全部球类绑定单击事件</span></span></span><br><span class="line"><span class="javascript">        $(<span class="string">&quot;:checkbox[name=&#x27;items&#x27;]&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            ar allCount = $(<span class="string">&quot;:checkbox[name=&#x27;items&#x27;]&quot;</span>).length;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> checkedCount = $(<span class="string">&quot;:checkbox[name=&#x27;items&#x27;]:checked&quot;</span>).length;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">            $(<span class="string">&quot;#chekcedAllBox&quot;</span>).prop(<span class="string">&quot;checked&quot;</span>, allCount == checkedCount);</span></span><br><span class="line">        &#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">    你爱好的运动是？</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&quot;checkedAllBox&quot;</span> /&gt;</span>全选/全不选</span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;items&quot;</span> <span class="attr">value</span>=<span class="string">&quot;足球&quot;</span> /&gt;</span>足球</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;items&quot;</span> <span class="attr">value</span>=<span class="string">&quot;篮球&quot;</span> /&gt;</span>篮球</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;items&quot;</span> <span class="attr">value</span>=<span class="string">&quot;羽毛球&quot;</span> /&gt;</span>足球</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;items&quot;</span> <span class="attr">value</span>=<span class="string">&quot;乒乓球&quot;</span> /&gt;</span>足球</span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;checkedAllBtn&quot;</span> <span class="attr">value</span>=<span class="string">&quot;全选&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;checkedNoBtn&quot;</span> <span class="attr">value</span>=<span class="string">&quot;全不选&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;checkedRevBtn&quot;</span> <span class="attr">value</span>=<span class="string">&quot;反选&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;sendBtn&quot;</span> <span class="attr">value</span>=<span class="string">&quot;提交&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="DOM的增删改"><a href="#DOM的增删改" class="headerlink" title="DOM的增删改"></a>DOM的增删改</h2><h3 id="内部插入"><a href="#内部插入" class="headerlink" title="内部插入"></a>内部插入</h3><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">举例</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">appendTo()</td>
+<td align="left">a.appendTo(b)</td>
+<td align="left">把a插入到b元素末尾成为最后一个子元素</td>
+</tr>
+<tr>
+<td align="left">prependTo()</td>
+<td align="left">a.prependTo(b)</td>
+<td align="left">把a插入到b所有子元素前面，成为第一个子元素</td>
+</tr>
+</tbody></table>
+<h3 id="外部插入"><a href="#外部插入" class="headerlink" title="外部插入"></a>外部插入</h3><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">举例</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">insertAfter()</td>
+<td align="left">a.insertAfter(b)</td>
+<td align="left">得到ba</td>
+</tr>
+<tr>
+<td align="left">insertBefore()</td>
+<td align="left">a.insertBefore(b)</td>
+<td align="left">得到ab</td>
+</tr>
+</tbody></table>
+<h3 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h3><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">举例</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">replaceWith()</td>
+<td align="left">a.replaceWith(b)</td>
+<td align="left">用b替换掉a</td>
+</tr>
+<tr>
+<td align="left">replaceAll()</td>
+<td align="left">a.repalceAll(b)</td>
+<td align="left">用a替换掉所有的b</td>
+</tr>
+</tbody></table>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">举例</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">remove()</td>
+<td align="left">a.remove()</td>
+<td align="left">删除a标签</td>
+</tr>
+<tr>
+<td align="left">empty()</td>
+<td align="left">a.empty()</td>
+<td align="left">清空a标签里的内容</td>
+</tr>
+</tbody></table>
+<h2 id="CSS样式操作"><a href="#CSS样式操作" class="headerlink" title="CSS样式操作"></a>CSS样式操作</h2><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">addClass()</td>
+<td align="left">添加样式</td>
+</tr>
+<tr>
+<td align="left">removeClass()</td>
+<td align="left">删除样式</td>
+</tr>
+<tr>
+<td align="left">toggleClass()</td>
+<td align="left">有就删除，没有就添加</td>
+</tr>
+<tr>
+<td align="left">offset()</td>
+<td align="left">获取和设置元素的坐标</td>
+</tr>
+</tbody></table>
+<h2 id="jQuery动画"><a href="#jQuery动画" class="headerlink" title="jQuery动画"></a>jQuery动画</h2><h3 id="基本动画"><a href="#基本动画" class="headerlink" title="基本动画"></a>基本动画</h3><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">show()</td>
+<td align="left">将隐藏的元素显示</td>
+</tr>
+<tr>
+<td align="left">hide()</td>
+<td align="left">将可见的元素隐藏</td>
+</tr>
+<tr>
+<td align="left">toggle()</td>
+<td align="left">可见就隐藏，隐藏就可见</td>
+</tr>
+</tbody></table>
+<h3 id="淡入淡出动画"><a href="#淡入淡出动画" class="headerlink" title="淡入淡出动画"></a>淡入淡出动画</h3><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">fadeln()</td>
+<td align="left">淡入（慢慢可见）</td>
+</tr>
+<tr>
+<td align="left">fadeOut()</td>
+<td align="left">淡出（慢慢不见）</td>
+</tr>
+<tr>
+<td align="left">fadeTo()</td>
+<td align="left">在指定时间内慢慢的将透明度修改到指定的值</td>
+</tr>
+<tr>
+<td align="left">fadeToggle()</td>
+<td align="left">淡入淡出切换</td>
+</tr>
+</tbody></table>
+<h2 id="jQuery事件操作"><a href="#jQuery事件操作" class="headerlink" title="jQuery事件操作"></a>jQuery事件操作</h2><p><strong>$(function(){});和window.onload=functino(){}的区别？</strong></p>
+<ol>
+<li>它们分别是在什么时候触发？<ol>
+<li>jQuery的页面加载完成之后是浏览器的内核解析完页面的标签创建号DOM对象之后就会马上执行；</li>
+<li>原生js页面加载完成之后，除了要等浏览器内核解析完标签创建好DOM对象，还要等标签显示时需要的内容加载完成。</li>
+</ol>
+</li>
+<li>它们触发的顺序？<ol>
+<li>jQuery页面加载完成之后先执行；</li>
+<li>原生js页面加载完成之后。</li>
+</ol>
+</li>
+<li>它们的执行次数？<ol>
+<li>jQuery的页面加载完成之后是全部把注册的function函数，依次全部执行；</li>
+<li>原生js的页面加载完成之后，指挥执行最后一次的赋值函数。</li>
+</ol>
+</li>
+</ol>
+<h3 id="其它事件处理方法"><a href="#其它事件处理方法" class="headerlink" title="其它事件处理方法"></a>其它事件处理方法</h3><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">click()</td>
+<td align="left">它可以绑定单击事件，以及触发单击事件</td>
+</tr>
+<tr>
+<td align="left">mouseover()</td>
+<td align="left">鼠标移入事件</td>
+</tr>
+<tr>
+<td align="left">mouseout()</td>
+<td align="left">鼠标移除事件</td>
+</tr>
+<tr>
+<td align="left">bind()</td>
+<td align="left">可以给元素一次绑定一个或多个事件</td>
+</tr>
+<tr>
+<td align="left">one()</td>
+<td align="left">使用上跟bind一样，但是one方法绑定的事件指挥相应一次</td>
+</tr>
+<tr>
+<td align="left">unbind()</td>
+<td align="left">跟bind方法相反的操作，接触事件的绑定</td>
+</tr>
+<tr>
+<td align="left">live()</td>
+<td align="left">也是用来绑定事件。它可以用来绑定选择器匹配的所有元素和事件。哪怕这个元素后面动态创建出来也有效</td>
+</tr>
+</tbody></table>
+<h3 id="事件的冒泡"><a href="#事件的冒泡" class="headerlink" title="事件的冒泡"></a>事件的冒泡</h3><p>什么是事件的冒泡？</p>
+<ul>
+<li>父子元素监听同一个事件。当触发子元素的事件的时候，同一个事件也被传递到了父元素的事件里去</li>
+</ul>
+<p>如何阻止事件冒泡？</p>
+<ul>
+<li>在事件的函数体内，return false;可以阻止</li>
+</ul>
+<h3 id="JavaScript事件对象"><a href="#JavaScript事件对象" class="headerlink" title="JavaScript事件对象"></a>JavaScript事件对象</h3><p>事件对象，是封装有触发的事件信息的一个JavaScript对象。<br>我们重点关心的是怎么拿到这个JavaScript的事件对象，以及使用。</p>
+<p>如何获取JavaScript事件对象呢？</p>
+<ul>
+<li>在给元素绑定事件的时候，在事件的function(event)参数列表中添加一个参数，这个参数名，我们习惯取名为event。这个event就是JavaScript传递参事件处理函数的事件对象</li>
+</ul>
+<p>比如：</p>
+<ol>
+<li>原生JavaScript获取事件对象</li>
+<li>jQuery代码获取事件对象</li>
+<li>使用bind同时对多个事件绑定同一个函数。</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://jquery.cuishifeng.cn/">jQuery API中文文档</a></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Luxnln</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://github.com/luxnln/luxnln.github.io/2020/12/15/JQuery%E5%85%A5%E9%97%A8/">https://github.com/luxnln/luxnln.github.io/2020/12/15/JQuery入门/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://github.com/luxnln/luxnln.github.io" target="_blank">luxnln</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/jQuery/">jQuery</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/icon/jQeury.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/12/15/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover2.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">原型模式</div></div></a></div><div class="next-post pull-right"><a href="/2020/12/14/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%EF%BC%88%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%EF%BC%89/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover16.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">java虚拟机学习总结（思维导图）</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">Valine</span><span class="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/head/rocket.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Luxnln</div><div class="author-info__description">一只奋斗的咸鱼</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">55</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">21</div></a></div></div><a class="button--animated" id="card-info-btn" href="https://github.com/luxnln/"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/luxnln" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a><a class="social-icon" href="mailto:luxinlin.las@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">一只年轻的博客~</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Jquery%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">Jquery介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jquery%E5%85%A5%E9%97%A8%E6%A1%88%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">Jquery入门案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jQuery%E6%A0%B8%E5%BF%83%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">jQuery核心函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%BA%E5%88%86jQuery%E5%AF%B9%E8%B1%A1%E5%92%8CDOM%E5%AF%B9%E8%B1%A1"><span class="toc-number">4.</span> <span class="toc-text">区分jQuery对象和DOM对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFjQuery%E5%AF%B9%E8%B1%A1%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">什么是jQuery对象？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFDOM%E5%AF%B9%E8%B1%A1"><span class="toc-number">4.2.</span> <span class="toc-text">什么是DOM对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jQuery%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">4.3.</span> <span class="toc-text">jQuery对象的本质是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jQuery%E5%AF%B9%E8%B1%A1%E5%92%8CDOM%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8%E4%B8%8A%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">4.4.</span> <span class="toc-text">jQuery对象和DOM对象使用上的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM%E5%AF%B9%E8%B1%A1%E5%92%8CjQuery%E5%AF%B9%E8%B1%A1%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2"><span class="toc-number">4.5.</span> <span class="toc-text">DOM对象和jQuery对象互相转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jQuery%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">5.</span> <span class="toc-text">jQuery选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">5.1.</span> <span class="toc-text">基本选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%82%E7%BA%A7%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">5.2.</span> <span class="toc-text">层级选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%BF%87%E6%BB%A4%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">5.3.</span> <span class="toc-text">基本过滤选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">5.4.</span> <span class="toc-text">内容过滤器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">5.5.</span> <span class="toc-text">属性过滤器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E5%8D%95%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">5.6.</span> <span class="toc-text">表单过滤器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%83%E7%B4%A0%E7%9A%84%E7%AD%9B%E9%80%89"><span class="toc-number">6.</span> <span class="toc-text">元素的筛选</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jQuery%E7%9A%84%E5%B1%9E%E6%80%A7%E6%93%8D%E4%BD%9C"><span class="toc-number">7.</span> <span class="toc-text">jQuery的属性操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#html-%E3%80%81text-%E3%80%81val"><span class="toc-number">7.1.</span> <span class="toc-text">html()、text()、val()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#attr-%E3%80%81prop"><span class="toc-number">7.2.</span> <span class="toc-text">attr()、prop()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E9%80%89%E3%80%81%E5%85%A8%E4%B8%8D%E9%80%89%E3%80%81%E5%8F%8D%E9%80%89%E6%A1%88%E4%BE%8B"><span class="toc-number">7.3.</span> <span class="toc-text">全选、全不选、反选案例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM%E7%9A%84%E5%A2%9E%E5%88%A0%E6%94%B9"><span class="toc-number">8.</span> <span class="toc-text">DOM的增删改</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E6%8F%92%E5%85%A5"><span class="toc-number">8.1.</span> <span class="toc-text">内部插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E6%8F%92%E5%85%A5"><span class="toc-number">8.2.</span> <span class="toc-text">外部插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2"><span class="toc-number">8.3.</span> <span class="toc-text">替换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4"><span class="toc-number">8.4.</span> <span class="toc-text">删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS%E6%A0%B7%E5%BC%8F%E6%93%8D%E4%BD%9C"><span class="toc-number">9.</span> <span class="toc-text">CSS样式操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jQuery%E5%8A%A8%E7%94%BB"><span class="toc-number">10.</span> <span class="toc-text">jQuery动画</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8A%A8%E7%94%BB"><span class="toc-number">10.1.</span> <span class="toc-text">基本动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%A1%E5%85%A5%E6%B7%A1%E5%87%BA%E5%8A%A8%E7%94%BB"><span class="toc-number">10.2.</span> <span class="toc-text">淡入淡出动画</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jQuery%E4%BA%8B%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">11.</span> <span class="toc-text">jQuery事件操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="toc-number">11.1.</span> <span class="toc-text">其它事件处理方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E7%9A%84%E5%86%92%E6%B3%A1"><span class="toc-number">11.2.</span> <span class="toc-text">事件的冒泡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1"><span class="toc-number">11.3.</span> <span class="toc-text">JavaScript事件对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">12.</span> <span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/03/01/springboot2%E7%AC%94%E8%AE%B0/" title="Springboot2 学习笔记"><img src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Springboot2 学习笔记"/></a><div class="content"><a class="title" href="/2021/03/01/springboot2%E7%AC%94%E8%AE%B0/" title="Springboot2 学习笔记">Springboot2 学习笔记</a><time datetime="2021-03-01T01:26:40.970Z" title="发表于 2021-03-01 09:26:40">2021-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/27/%E5%88%86%E9%A1%B5%E6%9D%A1%E6%A8%A1%E6%9D%BF/" title="分页条模板"><img src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover23.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分页条模板"/></a><div class="content"><a class="title" href="/2021/02/27/%E5%88%86%E9%A1%B5%E6%9D%A1%E6%A8%A1%E6%9D%BF/" title="分页条模板">分页条模板</a><time datetime="2021-02-27T02:04:02.000Z" title="发表于 2021-02-27 10:04:02">2021-02-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/01/11/MyBatis%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" title="MyBatis入门笔记"><img src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MyBatis入门笔记"/></a><div class="content"><a class="title" href="/2021/01/11/MyBatis%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" title="MyBatis入门笔记">MyBatis入门笔记</a><time datetime="2021-01-11T01:54:11.000Z" title="发表于 2021-01-11 09:54:11">2021-01-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/01/08/SpringMVC%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" title="SpringMVC入门笔记"><img src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SpringMVC入门笔记"/></a><div class="content"><a class="title" href="/2021/01/08/SpringMVC%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" title="SpringMVC入门笔记">SpringMVC入门笔记</a><time datetime="2021-01-08T01:15:07.000Z" title="发表于 2021-01-08 09:15:07">2021-01-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/01/06/Spring5%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" title="Spring5入门笔记"><img src="https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/cover/cover16.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spring5入门笔记"/></a><div class="content"><a class="title" href="/2021/01/06/Spring5%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" title="Spring5入门笔记">Spring5入门笔记</a><time datetime="2021-01-06T03:35:08.000Z" title="发表于 2021-01-06 11:35:08">2021-01-06</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/luxnln/cdn@main/img/icon/jQeury.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Luxnln</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到我的<a target="_blank" rel="noopener" href="https://luxnln.github.io/">博客</a>一起学习！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><div class="search-dialog__title" id="algolia-search-title">Algolia</div><div id="algolia-input-panel"><div id="algolia-search-input"></div></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-stats"></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'uytqObeeku5pIvOuSPbKavBQ-gzGzoHsz',
+      appKey: 'maDLKIIafoz3vsD2TiHgCsbF',
+      placeholder: '记得留下你的匿名和邮箱....可以快速收到回復',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk({
+      clientID: '4ca1b3485559d9a57698',
+      clientSecret: '83103a3948d3dbe29eb820c515968f4813c93f0c',
+      repo: 'for-gitalk',
+      owner: 'luxnln',
+      admin: ['luxnln'],
+      id: '58d9255b8275c481ce3622f30aafeb3c',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    })
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Valine' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
